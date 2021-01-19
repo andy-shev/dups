@@ -16,6 +16,7 @@ def main(args):
     entry point
     """
     parser = argparse.ArgumentParser(description="Find and delete duplicate files.")
+    parser.add_argument('-d', '--delete', action="store_true", help='delete duplicates')
     parser.add_argument('directory', nargs='*', default=['.'], help='directory to go through')
     args = parser.parse_args()
 
@@ -30,8 +31,16 @@ def main(args):
 
     for files in [sorted(v) for v in data.values() if len(v) > 1]:
         print('%d duplicate(s) of %s' % (len(files) - 1, files[-1]))
-        for fname in files[:-1]:
-            print(' ', fname)
+        if args.delete:
+            for fname in files[:-1]:
+                try:
+                    os.remove(fname)
+                    print (' ', fname, '(deleted)')
+                except OSError as e:
+                    print ("Error: %s - %s." % (e.filename, e.strerror))
+        else:
+            for fname in files[:-1]:
+                print (' ', fname)
 
 if __name__ == "__main__":
     sys.exit(main(sys.argv))
