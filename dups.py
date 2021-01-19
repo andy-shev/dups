@@ -4,22 +4,24 @@
 A simple tool to find duplicate file files
 """
 
+import argparse
 import sys, os
 
 from collections import defaultdict
 
 from hashlib import sha1
 
-def main(dirs):
+def main(args):
     """
     entry point
     """
-    if not dirs:
-        dirs = ['.']
+    parser = argparse.ArgumentParser(description="Find and delete duplicate files.")
+    parser.add_argument('directory', nargs='*', default=['.'], help='directory to go through')
+    args = parser.parse_args()
 
     data = defaultdict(list)
 
-    for dirname in dirs:
+    for dirname in args.directory:
         for path, _, files in os.walk(dirname):
             for name in files:
                 fname = os.path.join(path, name)
@@ -31,5 +33,5 @@ def main(dirs):
         for fname in files:
             print(' ', fname)
 
-if __name__ == '__main__':
-    main(sys.argv[1:])
+if __name__ == "__main__":
+    sys.exit(main(sys.argv))
