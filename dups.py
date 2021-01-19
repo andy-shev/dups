@@ -29,8 +29,8 @@ def main(args):
                     data[sha1(handle.read()).digest()].append(fname)
 
     for files in [sorted(v) for v in data.values() if len(v) > 1]:
-        print('%d duplicates' % len(files))
-        for fname in files:
+        print('%d duplicate(s) of %s' % (len(files) - 1, files[-1]))
+        for fname in files[:-1]:
             print(' ', fname)
 
 if __name__ == "__main__":
