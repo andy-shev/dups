@@ -1,4 +1,6 @@
 #!/usr/bin/env python3
+# -*- coding: UTF-8 -*-
+# vim: ts=4 sw=4 et ai si
 
 """
 A simple tool to find duplicate file files
