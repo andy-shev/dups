@@ -1,4 +1,4 @@
-#! /usr/bin/python -tt
+#!/usr/bin/env python3
 
 """
 A simple tool to find duplicate file files
@@ -27,9 +27,9 @@ def main(dirs):
                     data[sha1(handle.read()).digest()].append(fname)
 
     for files in [sorted(v) for v in data.values() if len(v) > 1]:
-        print '%d duplicates' % len(files)
+        print('%d duplicates' % len(files))
         for fname in files:
-            print ' ', fname
+            print(' ', fname)
 
 if __name__ == '__main__':
     main(sys.argv[1:])
